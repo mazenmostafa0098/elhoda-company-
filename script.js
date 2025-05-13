@@ -1,7 +1,7 @@
 const CONFIG = {
   requiredStatuses: ["منفذ", "معاينة", "سحب", "سحب للمصنع"],
   MAX_VIDEO_SIZE_MB: 100,
-  API_URL: "https://script.google.com/macros/s/AKfycbzLq4TfBVS_6KSGZgAiwAzyOGoh2Sk_V0xwDM5dccf1k8sKW7_OUpA_aFBB-iG0EWASgg/exec"
+  API_URL: "https://script.google.com/macros/s/AKfycbzi4V5C-njBWH8x5F693b6-gWZeEuBPsanpO_fdbMjq4xEBgcSgvRH0NdWY5Ux9Z1nM6A/exec"
 };
 
 let state = {
