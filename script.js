@@ -1,7 +1,8 @@
 const CONFIG = {
   requiredStatuses: ["منفذ", "معاينة", "سحب", "سحب للمصنع"],
   MAX_VIDEO_SIZE_MB: 100,
-  API_URL: "YOUR_GOOGLE_SHEETS_SCRIPT_URL",
+  API_URL:
+    "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLgCPFkTGl4sOpviPksOxwi7_F91zO6YdQ9bJgbFnv9f5E_mR6yJMzsEEr8vNmteEHH7ThtoJkX2cdxX6WS47csi-H40HZMwnOKtzp9x5ztCeWEBAYCxdmdXy0OEzrnFxaFNev16usGDjvlbUsGzTFlXgn_cfRv1uNT6bFXxPP75s9QqwuGUilCqild0rL6pBXBG2pgNyWoQImF_ZVTSJ6eMwl2KcZ388Mc4vlfoqX38_JOQZTkVeQpDvTbTIki8ee2G-n-t5WZapK9UbkkUpDRuSpWXex2QPAMXvylZ",
 };
 
 // ------------------- المتغيرات العامة -------------------
