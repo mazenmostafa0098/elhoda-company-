@@ -1,8 +1,7 @@
 const CONFIG = {
   requiredStatuses: ["منفذ", "معاينة", "سحب", "سحب للمصنع"],
   MAX_VIDEO_SIZE_MB: 100,
-  API_URL:
-    "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLgCPFkTGl4sOpviPksOxwi7_F91zO6YdQ9bJgbFnv9f5E_mR6yJMzsEEr8vNmteEHH7ThtoJkX2cdxX6WS47csi-H40HZMwnOKtzp9x5ztCeWEBAYCxdmdXy0OEzrnFxaFNev16usGDjvlbUsGzTFlXgn_cfRv1uNT6bFXxPP75s9QqwuGUilCqild0rL6pBXBG2pgNyWoQImF_ZVTSJ6eMwl2KcZ388Mc4vlfoqX38_JOQZTkVeQpDvTbTIki8ee2G-n-t5WZapK9UbkkUpDRuSpWXex2QPAMXvylZ",
+  API_URL: "https://script.google.com/macros/s/XXXXXXXXXX/exec", // ← رابط النشر الجديد
 };
 
 // ------------------- المتغيرات العامة -------------------
@@ -143,13 +142,23 @@ const ValidationManager = {
 
 // ------------------- إدارة النماذج -------------------
 const FormManager = {
-  initSelections: () => {
-    const techSelect = document.getElementById("techName");
-    const techs = [{ name: "الفني 1" }, { name: "الفني 2" }];
-    techs.forEach((tech) => {
-      const option = new Option(tech.name, tech.name);
-      techSelect.add(option);
-    });
+  initSelections: async () => {
+    try {
+      const response = await fetch(`${CONFIG.API_URL}?action=getTechnicians`);
+      if (!response.ok) throw new Error("فشل جلب البيانات");
+
+      const techs = await response.json();
+      const techSelect = document.getElementById("techName");
+      techSelect.innerHTML = '<option value="">اختر الفني</option>';
+
+      techs.data.forEach((tech) => {
+        const option = new Option(tech.name, tech.name);
+        techSelect.add(option);
+      });
+    } catch (error) {
+      console.error("خطأ في جلب الفنيين:", error);
+      alert("❗ تعذر تحميل بيانات الفنيين");
+    }
   },
 
   toggleSections: (showClient = false, showReport = false) => {
@@ -331,7 +340,15 @@ const FormValidator = {
   },
 
   validateForm: () => {
-    // ... (التحقق من الحقول الإلزامية والحالات الخاصة)
+    if (!ValidationManager.validateRequiredFields()) return false;
+
+    // تحقق من وجود التوقيع
+    if (!state.uploadedFiles.signature) {
+      alert("❗ يرجى إضافة التوقيع");
+      return false;
+    }
+
+    return true;
   },
 
   showFieldError: (element, fieldName) => {
@@ -340,7 +357,8 @@ const FormValidator = {
     element.classList.add("invalid");
   },
 };
-// في script.js
+
+// ------------------- Service Worker -------------------
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/service-worker.js").then((reg) => {
     reg.addEventListener("updatefound", () => {
