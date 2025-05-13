@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar-SA" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0056b3" />
+    <title>نظام تقفيل المنزليه</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <div class="loading-overlay hidden" id="loadingOverlay">
+      <div class="spinner"></div>
+      <div>جارٍ إغلاق البلاغ...</div>
+      <div id="overallProgressText"></div>
+    </div>
+
+    <div class="container">
+      <h1>نظام تقفيل المنزليه</h1>
+
+      <!-- بيانات الفني -->
+      <div class="form-section">
+        <h2>بيانات الفني</h2>
+        <label for="techName">اسم الفني:</label>
+        <select id="techName">
+          <option value="">اختر الفني</option>
+        </select>
+
+        <div id="passwordSection" class="hidden">
+          <label for="techPassword">الباسورد:</label>
+          <input type="password" id="techPassword" />
+          <div id="passwordError" class="error-message">
+            ❗ الباسورد غير صحيح
+          </div>
+        </div>
+      </div>
+
+      <!-- بيانات العميل -->
+      <div id="clientSection" class="form-section hidden">
+        <h2>بيانات العميل</h2>
+        <label for="clientName" class="required">اسم العميل:</label>
+        <select id="clientName">
+          <option value="">اختر العميل</option>
+        </select>
+
+        <label for="reportNumber" class="required">رقم البلاغ:</label>
+        <input type="text" id="reportNumber" readonly />
+
+        <label for="companyType">نوع الشركة:</label>
+        <input type="text" id="companyType" readonly />
+
+        <label for="address">العنوان:</label>
+        <input type="text" id="address" readonly />
+
+        <label for="phone1">الهاتف 1:</label>
+        <input type="text" id="phone1" readonly />
+
+        <label for="phone2">الهاتف 2:</label>
+        <input type="text" id="phone2" readonly />
+
+        <label for="requiredCollection">المطلوب تحصيله:</label>
+        <input type="text" id="requiredCollection" readonly />
+
+        <label for="fault">العطل:</label>
+        <input type="text" id="fault" readonly />
+
+        <label for="productType">نوع المنتج:</label>
+        <input type="text" id="productType" readonly />
+
+        <label for="adminNotes">ملاحظات ادارية (من المسؤول):</label>
+        <textarea id="adminNotes" readonly></textarea>
+      </div>
+
+      <!-- بيانات التقرير -->
+      <div id="reportSection" class="form-section hidden">
+        <h2>بيانات التقرير</h2>
+
+        <label for="serialText">نص السيريال:</label>
+        <input type="text" id="serialText" />
+
+        <label for="serialImage">صورة السيريال:</label>
+        <input type="file" id="serialImage" accept="image/*" />
+        <span id="serialImageStatus" class="file-upload-status"></span>
+
+        <label for="modelText">نص الموديل:</label>
+        <input type="text" id="modelText" />
+
+        <label for="modelImage">صورة الموديل:</label>
+        <input type="file" id="modelImage" accept="image/*" />
+        <span id="modelImageStatus" class="file-upload-status"></span>
+
+        <label for="invoice">الفاتورة:</label>
+        <input type="file" id="invoice" accept="image/*,application/pdf" />
+        <span id="invoiceStatus" class="file-upload-status"></span>
+
+        <label for="warrantyImage">صورة الضمان:</label>
+        <input type="file" id="warrantyImage" accept="image/*" />
+        <span id="warrantyImageStatus" class="file-upload-status"></span>
+
+        <label for="warrantyStatus">حالة الضمان:</label>
+        <select id="warrantyStatus">
+          <option value="داخل الضمان">داخل الضمان</option>
+          <option value="خارج الضمان">خارج الضمان</option>
+          <option value="سوء استخدام">سوء استخدام</option>
+        </select>
+
+        <label for="video1">فيديو 1:</label>
+        <span class="hint">(الحد الأقصى 100MB)</span>
+        <input type="file" id="video1" accept="video/*" />
+        <span id="video1Status" class="file-upload-status"></span>
+
+        <label for="video2">فيديو 2:</label>
+        <input type="file" id="video2" accept="video/*" />
+        <span id="video2Status" class="file-upload-status"></span>
+
+        <label for="report">التقرير التفصيلي:</label>
+        <textarea id="report"></textarea>
+
+        <label for="status">حالة البلاغ:</label>
+        <select id="status">
+          <option value="معاينة">معاينة</option>
+          <option value="منفذ">منفذ</option>
+          <option value="سحب">سحب</option>
+          <option value="سحب للمصنع">سحب للمصنع</option>
+          <option value="لاغى">لاغى</option>
+          <option value="مرتجع">مرتجع</option>
+        </select>
+
+        <label for="collectedAmountFromClient" class="required"
+          >المبلغ المحصل من العميل:</label
+        >
+        <input type="number" id="collectedAmountFromClient" value="0" min="0" />
+
+        <label for="otherImage">صورة أخرى (مطلوبة في حالة المرتجع):</label>
+        <input type="file" id="otherImage" accept="image/*" />
+        <span id="otherImageStatus" class="file-upload-status"></span>
+
+        <div class="signature-container">
+          <label>التوقيع:</label>
+          <canvas id="signatureCanvas"></canvas>
+          <div class="signature-buttons">
+            <button type="button" class="sig-btn">مسح</button>
+            <button type="button" class="sig-btn">حفظ التوقيع</button>
+          </div>
+          <span id="signatureStatus" class="file-upload-status"></span>
+        </div>
+
+        <button id="submitButton" disabled>إرسال التقرير</button>
+        <div id="progressContainer" class="progress-container">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
