@@ -6,8 +6,7 @@ const CACHE_ASSETS = [
   "/style.css",
   "/script.js",
   "/manifest.json",
-  "/icon-192.png",
-  "/icon-512.png",
+  "/icon-192.png.png",
   "/fonts/tajawal.woff2", // إضافة موارد إضافية
   "/images/logo.svg",
   OFFLINE_URL,
