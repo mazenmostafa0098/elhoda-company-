@@ -1,7 +1,7 @@
 const CONFIG = {
   requiredStatuses: ["منفذ", "معاينة", "سحب", "سحب للمصنع"],
   MAX_VIDEO_SIZE_MB: 100,
-  API_URL: "https://script.google.com/macros/s/XXXXXXXXXX/exec", // ← رابط النشر الجديد
+  API_URL: "https://script.google.com/macros/s/AKfycbw2GD6YmDBqoSMWVSvIo4-eWRAC7L9Np4JcnPGBtZe9hByot8Rapuh0t4Xc8oPMcfZHDQ/exec", // ← رابط النشر الجديد
 };
 
 // ------------------- المتغيرات العامة -------------------
